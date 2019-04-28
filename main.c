@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
     char *nombre_archivo2="lenguaje2.txt";
     FILE *lenguaje1=abrirArchivo(nombre_archivo);
     FILE *lenguaje2=abrirArchivo(nombre_archivo2);
-    FILE *unionLenguajes,*conLenguajes;
+    FILE *unionLenguajes,*conLenguajes,*potLenguajes;
     switch(menu())
     {
         case 1:
@@ -14,6 +14,9 @@ int main(int argc, char const *argv[])
             break;
         case 2:
             conLenguajes=concaLenguajes(lenguaje1,lenguaje2); 
+            break;
+        case 3:
+            potLenguajes=poteLenguajes(lenguaje1,lenguaje1,3);
             break;
     }
     return 0;

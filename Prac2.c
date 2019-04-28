@@ -48,17 +48,19 @@ FILE *unirLenguajes(FILE *lenguaje1,FILE *lenguaje2)
 FILE *concaLenguajes(FILE *lenguaje1,FILE *lenguaje2)
 {
     char cad[TAM],cad2[TAM],aux[TAM];
-    FILE *conLenguajes=fopen("concatenacionLenguajes.txt","w"); 
+    FILE *conLenguajes=fopen("concatenacionLenguajes.txt",WRITE); 
     while(feof(lenguaje1)==0)
     {
         fgets(cad,TAM,lenguaje1);
         strcpy(aux,cad);
+        eliminaSalto(aux);
         while(feof(lenguaje2)==0)
         {
             fgets(cad2,TAM,lenguaje2);
             strcat(aux,cad2);
             fputs(aux,conLenguajes);
             strcpy(aux,cad);
+            eliminaSalto(aux);
         }
         rewind(lenguaje2);
     }
@@ -67,4 +69,37 @@ FILE *concaLenguajes(FILE *lenguaje1,FILE *lenguaje2)
     fclose(conLenguajes);
     return conLenguajes;
 }
-
+FILE *poteLenguajes(FILE *lenguaje1,FILE *lenguaje2 ,int potencia)
+{
+    char cad[TAM],cad2[TAM],aux[TAM];
+    FILE *potLenguajes=fopen("potenciaLenguaje.txt",WRITE); 
+    while(feof(lenguaje1)==0)
+    {
+        fgets(cad,TAM,lenguaje1);
+        strcpy(aux,cad);
+        eliminaSalto(aux);
+        while(feof(lenguaje2)==0)
+        {
+            fgets(cad2,TAM,lenguaje2);
+            strcat(aux,cad2);
+            fputs(aux,potLenguajes);
+            strcpy(aux,cad);
+            eliminaSalto(aux);
+        }
+        rewind(lenguaje2);
+    }
+    fclose(lenguaje1);
+    fclose(lenguaje2);
+    fclose(potLenguajes);
+    return potLenguajes;
+}
+void eliminaSalto(char cad[])
+{
+    for (int i = 0; i < strlen(cad); i++)
+    {
+        if(cad[i]=='\n')
+        {
+            cad[i]=' ';
+        }
+    }
+}
