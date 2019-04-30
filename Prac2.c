@@ -69,29 +69,53 @@ FILE *concaLenguajes(FILE *lenguaje1,FILE *lenguaje2)
     fclose(conLenguajes);
     return conLenguajes;
 }
-FILE *poteLenguajes(FILE *lenguaje1,FILE *lenguaje2 ,int potencia)
+FILE *poteLenguajes(FILE *lenguaje1,int potencia)
 {
-    char cad[TAM],cad2[TAM],aux[TAM];
-    FILE *potLenguajes=fopen("potenciaLenguaje.txt",WRITE); 
+    char cad[TAM],cad2[TAM],aux[TAM],aux2[TAM];
+    FILE *poLenguaje=fopen("potenciaLenguaje.txt","w+");
+    FILE *copia=fopen("potenciaLenguaje.txt",READ);
     while(feof(lenguaje1)==0)
     {
         fgets(cad,TAM,lenguaje1);
+        fputs(cad,poLenguaje);
+    }
+    rewind(poLenguaje);
+    while(feof(poLenguaje)==0)
+    {
+        fgets(cad,TAM,poLenguaje);
         strcpy(aux,cad);
         eliminaSalto(aux);
-        while(feof(lenguaje2)==0)
+        while(feof(copia)==0)
         {
-            fgets(cad2,TAM,lenguaje2);
+            fgets(cad2,TAM,copia);
             strcat(aux,cad2);
-            fputs(aux,potLenguajes);
+            fputs(aux,poLenguaje);
             strcpy(aux,cad);
-            eliminaSalto(aux);
+            eliminaSalto(aux); 
         }
-        rewind(lenguaje2);
+        fseek(copia,0,SEEK_SET);
     }
-    fclose(lenguaje1);
-    fclose(lenguaje2);
-    fclose(potLenguajes);
-    return potLenguajes;
+    return poLenguaje;
+}
+FILE *cerraduraLenguaje(FILE *lenguaje1)
+{
+
+}
+char *invertirCadena(char *cad)
+{
+    char *ptr=(char *)malloc(sizeof(char)),*ptr2=(char *)malloc(sizeof(char)),tem;
+    ptr=cad;
+    for(ptr2=ptr;*ptr2!='\0';ptr2++);
+    ptr2--;
+    for(;*ptr2!='\0';ptr++,ptr2--)
+    {
+        printf("ptr-%c  ptr2-%c\n",*ptr,*ptr2);
+        tem=*ptr;
+        *ptr=*ptr2;
+        *ptr2=tem;
+    }
+    printf("%s",ptr);
+    return "c";
 }
 void eliminaSalto(char cad[])
 {
