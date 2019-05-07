@@ -23,12 +23,13 @@ int menu()
 }
 FILE *unirLenguajes(FILE *lenguaje1,FILE *lenguaje2)
 {
-    char cadena[TAM],aux[TAM];
-    FILE *unionLenguajes=fopen("unionLenguajes.txt",WRITE);
+    char cadena[TAM],aux[TAM],cad[TAM];
+    FILE *unionLenguajes=fopen("unionLenguajes.txt","w+");
     while (feof(lenguaje1)==0)
     {
         fgets(cadena,TAM,lenguaje1);
-        fputs(cadena,unionLenguajes);
+        strcpy(cad,cadena);
+        fputs(cad,unionLenguajes);
     }  
     rewind(unionLenguajes);
     while (feof(lenguaje2)==0)
@@ -97,25 +98,27 @@ FILE *poteLenguajes(FILE *lenguaje1,int potencia)
     }
     return poLenguaje;
 }
-FILE *cerraduraLenguaje(FILE *lenguaje1)
+FILE *reLenguaje(FILE *lenguaje1)
 {
-
+    FILE *reflexion=fopen("reflexionLenguaje.txt",WRITE);
+    char *aux,cad[TAM];
+    while(feof(lenguaje1)==0)
+    {
+        fgets(cad,TAM,lenguaje1);
+        aux=invertirCadena(cad);
+        fputs(aux,reflexion);
+    }
+    return reflexion;
 }
 char *invertirCadena(char *cad)
 {
-    char *ptr=(char *)malloc(sizeof(char)),*ptr2=(char *)malloc(sizeof(char)),tem;
-    ptr=cad;
-    for(ptr2=ptr;*ptr2!='\0';ptr2++);
-    ptr2--;
-    for(;*ptr2!='\0';ptr++,ptr2--)
-    {
-        printf("ptr-%c  ptr2-%c\n",*ptr,*ptr2);
-        tem=*ptr;
-        *ptr=*ptr2;
-        *ptr2=tem;
-    }
-    printf("%s",ptr);
-    return "c";
+    char *ptr,*ptr2=(char *)malloc(sizeof(char));
+    for(ptr=cad;*ptr!='\0';ptr++);
+    ptr--;
+    for(int i=strlen(cad);i>0;ptr--,i--,ptr2++)
+        *ptr2=*ptr;
+    for(int i=strlen(cad);i>0;ptr2--,i--);
+    return ptr2;
 }
 void eliminaSalto(char cad[])
 {

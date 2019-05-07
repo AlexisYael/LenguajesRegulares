@@ -4,10 +4,9 @@ int main(int argc, char const *argv[])
 {
     char *nombre_archivo="lenguaje1.txt";
     char *nombre_archivo2="lenguaje2.txt";
-    char *cad;
     FILE *lenguaje1=abrirArchivo(nombre_archivo);
     FILE *lenguaje2=abrirArchivo(nombre_archivo2);
-    FILE *unionLenguajes,*conLenguajes,*potLenguajes;
+    FILE *unionLenguajes,*conLenguajes,*potLenguajes,*refleLenguajes;
     switch(menu())
     {
         case 1:
@@ -20,7 +19,7 @@ int main(int argc, char const *argv[])
             potLenguajes=poteLenguajes(lenguaje1,3);
             break;
         case 4:
-            invertirCadena("hola");
+            refleLenguajes=reLenguaje(lenguaje1);
             break;
     }
     return 0;
