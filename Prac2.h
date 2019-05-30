@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define TAM 200
+#define ARCH 10000
 #define READ "r"
 #define WRITE "w"
 

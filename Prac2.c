@@ -70,34 +70,6 @@ FILE *concaLenguajes(FILE *lenguaje1,FILE *lenguaje2)
     fclose(conLenguajes);
     return conLenguajes;
 }
-FILE *poteLenguajes(FILE *lenguaje1,int potencia)
-{
-    char cad[TAM],cad2[TAM],aux[TAM],aux2[TAM];
-    FILE *poLenguaje=fopen("potenciaLenguaje.txt","w+");
-    FILE *copia=fopen("potenciaLenguaje.txt",READ);
-    while(feof(lenguaje1)==0)
-    {
-        fgets(cad,TAM,lenguaje1);
-        fputs(cad,poLenguaje);
-    }
-    rewind(poLenguaje);
-    while(feof(poLenguaje)==0)
-    {
-        fgets(cad,TAM,poLenguaje);
-        strcpy(aux,cad);
-        eliminaSalto(aux);
-        while(feof(copia)==0)
-        {
-            fgets(cad2,TAM,copia);
-            strcat(aux,cad2);
-            fputs(aux,poLenguaje);
-            strcpy(aux,cad);
-            eliminaSalto(aux); 
-        }
-        fseek(copia,0,SEEK_SET);
-    }
-    return poLenguaje;
-}
 FILE *reLenguaje(FILE *lenguaje1)
 {
     FILE *reflexion=fopen("reflexionLenguaje.txt",WRITE);
@@ -129,4 +101,77 @@ void eliminaSalto(char cad[])
             cad[i]=' ';
         }
     }
+}
+/* FILE *poteLenguajes(FILE *lenguaje1,int potencia)
+{
+    char cad[TAM],aux[TAM],aux2[TAM],mem[TAM];
+    FILE *poteLenguaje=fopen("potenciaLenguaje.txt","w+");
+    FILE *movimiento=fopen("potenciaLenguaje.txt","w+");
+    long int pos=0;
+    if(potencia==0)
+    {
+        fclose(poteLenguaje);
+        return poteLenguaje;
+    }
+    else if(potencia==1)
+    {
+        while(feof(lenguaje1)==0)
+        {
+            fgets(cad,TAM,lenguaje1);
+            strcpy(aux,cad);
+            fputs(aux,poteLenguaje);
+        }
+        fclose(poteLenguaje);
+        return poteLenguaje;
+    }
+    else
+    {
+        while(feof(lenguaje1)==0)
+        {
+            fgets(cad,TAM,lenguaje1);
+            strcpy(aux,cad);
+            fputs(aux,poteLenguaje);
+        }
+        rewind(poteLenguaje);
+        for(int i=1;i<potencia;i++)
+        {
+            while(feof(poteLenguaje)==0)
+            {
+                fgets(cad,TAM,poteLenguaje);
+                strcpy(mem,cad);
+                eliminaSalto(cad);
+                while(feof(movimiento)==0)
+                {
+                    fgets(aux,TAM,movimiento);
+                    strcat(cad,aux);
+                    fputs(cad,poteLenguaje);
+                    strcpy(cad,mem);
+                    eliminaSalto(cad);
+                } 
+                fseek(movimiento,0,SEEK_SET);
+            }
+        }
+        fclose(poteLenguaje);
+        return poteLenguaje;
+    }
+}  */
+FILE *poteLenguajes(FILE *lenguaje1,int potencia)
+{
+    FILE *aux=fopen("potenciaLenguaje.txt","w+");
+    char cad[TAM];
+    while (feof(lenguaje1)==0)
+    {
+        fgets(cad,TAM,lenguaje1);
+        fputs(cad,aux);
+    }
+    rewind(aux);
+    for(int i=1;i<potencia;i++)
+    {
+        while(feof(aux)==0)
+        {
+            fgets(cad,TAM,aux);
+            printf("%s - %d",cad,fseek(aux,0L,SEEK_SET));
+        }
+    }
+    fclose(aux);
 }
